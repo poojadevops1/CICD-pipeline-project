@@ -29,12 +29,12 @@ pipeline {
             steps {
                 script {
                     sh """
-                    git clone https://$GITHUB_TOKEN@github.com/$GITHUB_REPO_B.git repo-b
+                    git clone https://$GITHUB_TOKEN@github.com/$GITHUB_REPO_B.git repo-b || exit 1
                     cd repo-b
                     sed -i 's|image:.*|image: $DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG|' deployment.yaml
                     git add deployment.yaml
                     git commit -m 'Updated image to $DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG'
-                    git push origin main
+                    git push origin main || exit 1
                     """
                 }
             }
@@ -46,4 +46,3 @@ pipeline {
         }
     }
 }
-
