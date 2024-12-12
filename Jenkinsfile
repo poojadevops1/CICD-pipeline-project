@@ -30,12 +30,12 @@ pipeline {
             steps {
                 script {
                     echo "Cloning Repo B and updating deployment manifest..."
-                    withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'github-token', variable: 'github-token')]) {
                         sh """
                         # Clone the GitHub repository using the token
-                        git clone $GITHUB_REPO_B  
-                        cd ARGOCD-DEPLOY
-                        cd manifest
+                        git clone https://$github-token@$GITHUB_REPO_B repo-b
+                        cd repo-b/manifest
+                        
 
                         # Update the image tag in the deployment manifest
                         sed -i 's|image:.*|image: $DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG|' deployment.yaml
