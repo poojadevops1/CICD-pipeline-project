@@ -35,6 +35,7 @@ pipeline {
                         # Clone the GitHub repository using the token
                         git clone $GITHUB_REPO_B  
                         cd ARGOCD-DEPLOY
+                        cd manifest
 
                         # Update the image tag in the deployment manifest
                         sed -i 's|image:.*|image: $DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG|' deployment.yaml
