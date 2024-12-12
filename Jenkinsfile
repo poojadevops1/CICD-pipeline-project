@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = 'cicd-pipeline-node'
         IMAGE_TAG = "v${BUILD_NUMBER}"
         GITHUB_REPO_A = 'https://github.com/poojadevops1/CICD-pipeline-project'
-        GITHUB_REPO_B = 'poojadevops1/ARGOCD-DEPLOY'  // Correct URL format for repo B
+        GITHUB_REPO_B = 'https://github.com/poojadevops1/ARGOCD-DEPLOY.git'  // Correct URL format for repo B
     }
     stages {
         stage('Build Docker Image') {
