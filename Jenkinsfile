@@ -33,8 +33,8 @@ pipeline {
                     withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
                         sh """
                         # Clone the GitHub repository using the token
-                        git clone  GITHUB_REPO_B
-            
+                        git clone https://$GITHUB_TOKEN@github.com/$GITHUB_REPO_B.git repo-b
+                        cd repo-b
 
                         # Update the image tag in the deployment manifest
                         sed -i 's|image:.*|image: $DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG|' deployment.yaml
