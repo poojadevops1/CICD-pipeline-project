@@ -1,11 +1,10 @@
-pipeline {
+ipeline {
     agent any
     environment {
         DOCKER_REGISTRY = 'poojadevops1012'
         IMAGE_NAME = 'cicd-pipeline-node'
         IMAGE_TAG = "v${BUILD_NUMBER}"
-        GITHUB_REPO_A = 'https://github.com/poojadevops1/CICD-pipeline-project'
-        GITHUB_REPO_B = 'https://github.com/poojadevops1/ARGOCD-DEPLOY.git'  // Correct URL format for repo B
+        GITHUB_REPO_B = 'github.com/poojadevops1/ARGOCD-DEPLOY.git' // Ensure repo URL is clean
     }
     stages {
         stage('Build Docker Image') {
@@ -30,12 +29,11 @@ pipeline {
             steps {
                 script {
                     echo "Cloning Repo B and updating deployment manifest..."
-                    withCredentials([string(credentialsId: 'github-token', variable: 'github-token')]) {
+                    withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
                         sh """
                         # Clone the GitHub repository using the token
-                        git clone https://${github-token}@${GITHUB_REPO_B.replace('https://', '')} repo-b
+                        git clone https://${GITHUB_TOKEN}@${GITHUB_REPO_B} repo-b
                         cd repo-b/manifest
-                        
 
                         # Update the image tag in the deployment manifest
                         sed -i 's|image:.*|image: $DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG|' deployment.yaml
@@ -47,7 +45,7 @@ pipeline {
                         # Commit and push changes
                         git add deployment.yaml
                         git commit -m 'Updated image to $DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG'
-                        git push
+                        git push origin main
                         """
                     }
                 }
