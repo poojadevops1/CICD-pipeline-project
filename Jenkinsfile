@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = 'cicd-pipeline-node'
         IMAGE_TAG = "v${BUILD_NUMBER}"
         GITHUB_REPO_A = 'https://github.com/poojadevops1/CICD-pipeline-project'
-        GITHUB_REPO_B = 'https://github.com/poojadevops1/ARGOCD-DEPLOY.git'
+        GITHUB_REPO_B = 'poojadevops1/ARGOCD-DEPLOY'  // Correct URL format for repo B
     }
     stages {
         stage('Build Docker Image') {
@@ -33,7 +33,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
                         sh """
                         # Clone the GitHub repository using the token
-                        git clone https://$GITHUB_TOKEN@$GITHUB_REPO_B repo-b
+                        git clone https://$GITHUB_TOKEN@github.com/$GITHUB_REPO_B.git repo-b
                         cd repo-b
 
                         # Update the image tag in the deployment manifest
