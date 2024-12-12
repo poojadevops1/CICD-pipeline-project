@@ -30,6 +30,8 @@ pipeline {
                 script {
                     // Cloning the repository with GitHub token in the URL
                     sh """
+                    git config --global user.name "pooja"
+                    git config --global user.email "pmanellore@gmail.com"
                     git clone https://$GITHUB_TOKEN@github.com/$GITHUB_REPO_B.git repo-b || exit 1
                     cd repo-b
                     
