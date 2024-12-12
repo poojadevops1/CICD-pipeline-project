@@ -41,7 +41,7 @@ pipeline {
 
                         # Configure Git and push changes
                         git config --global user.email "pmanellore@gmail.com"
-                        git config --global user.name "pooja"
+                        git config --global user.name "poojadevops1"
                         git add deployment.yaml
                         git commit -m 'Updated image to $DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG'
                         git push origin main
