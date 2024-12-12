@@ -1,4 +1,4 @@
-ipeline {
+pipeline {
     agent any
     environment {
         DOCKER_REGISTRY = 'poojadevops1012'
