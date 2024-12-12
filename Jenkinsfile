@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_REGISTRY = 'poojadevops1012'
-        IMAGE_NAME = 'cicd-pipeline-node/v1-demo'
+        IMAGE_NAME = 'cicd-pipeline-node'
         IMAGE_TAG = "v${BUILD_NUMBER}"
         GITHUB_REPO_A = 'https://github.com/poojadevops1/CICD-pipeline-project'
         GITHUB_REPO_B = 'poojadevops1/ARGOCD-DEPLOY'
