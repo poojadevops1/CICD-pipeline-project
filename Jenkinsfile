@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = 'cicd-pipeline-node'
         IMAGE_TAG = "v${BUILD_NUMBER}"
         GITHUB_REPO_A = 'https://github.com/poojadevops1/CICD-pipeline-project'
-        GITHUB_REPO_B = 'poojadevops1/ARGOCD-DEPLOY'
+        GITHUB_REPO_B = 'https://github.com/poojadevops1/ARGOCD-DEPLOY.git'
     }
     stages {
         stage('Build Docker Image') {
@@ -33,18 +33,20 @@ pipeline {
                     withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
                         sh """
                         # Clone the GitHub repository using the token
-                        git clone https://$GITHUB_TOKEN@github.com/$GITHUB_REPO_B.git repo-b
+                        git clone https://$GITHUB_TOKEN@$GITHUB_REPO_B repo-b
                         cd repo-b
 
                         # Update the image tag in the deployment manifest
                         sed -i 's|image:.*|image: $DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG|' deployment.yaml
 
-                        # Configure Git and push changes
-                        git config --global user.email "pmanellore@gmail.com"
-                        git config --global user.name "poojadevops1"
+                        # Configure Git user details
+                        git config user.email "pmanellore@gmail.com"
+                        git config user.name "poojadevops1"
+
+                        # Commit and push changes
                         git add deployment.yaml
                         git commit -m 'Updated image to $DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG'
-                        git push origin main
+                        git push
                         """
                     }
                 }
