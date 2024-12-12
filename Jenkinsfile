@@ -33,7 +33,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'github-token', variable: 'github-token')]) {
                         sh """
                         # Clone the GitHub repository using the token
-                        git clone https://${GITHUB_TOKEN}@${GITHUB_REPO_B.replace('https://', '')} repo-b
+                        git clone https://${github-token}@${GITHUB_REPO_B.replace('https://', '')} repo-b
                         cd repo-b/manifest
                         
 
