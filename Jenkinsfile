@@ -2,7 +2,7 @@ pipeline {
     agent any
     
      environment {
-        DOCKER_REGISTRY = credentials('DOCKER_REGISTRY') // Use Jenkins credentials ID
+        DOCKER_REGISTRY = $'DOCKER_REGISTRY' // Use Jenkins credentials ID
         IMAGE_NAME = 'cicd-pipeline-node'    // Use Jenkins credentials ID
         IMAGE_TAG = "v${BUILD_NUMBER}"
         GITHUB_REPO_B = $('REPO_B')           // Use Jenkins credentials ID
