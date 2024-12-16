@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    
-pipeline {
-    agent any
 
     environment {
         DOCKER_REGISTRY = credentials('DOCKER_REGISTRY') // Jenkins credentials ID for Docker Registry
