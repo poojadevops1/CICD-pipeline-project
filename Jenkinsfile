@@ -1,10 +1,10 @@
 pipeline {
     agent any
     environment {
-        DOCKER_REGISTRY = 'poojadevops1012'
-        IMAGE_NAME = 'cicd-pipeline-node'
+        DOCKER_REGISTRY = $ {{secrets.DOCKER_REGISTRY}}
+        IMAGE_NAME = $ {{secrets.DOCKER_IMAGE_NAME}}
         IMAGE_TAG = "v${BUILD_NUMBER}"
-        GITHUB_REPO_B = 'github.com/poojadevops1/ARGOCD-DEPLOY.git' // Ensure repo URL is clean
+        GITHUB_REPO_B = $ {{secrets.REPO_B}} // Ensure repo URL is clean
     }
     stages {
         stage('Build Docker Image') {
