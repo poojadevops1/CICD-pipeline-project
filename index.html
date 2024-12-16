@@ -1,76 +1,1326 @@
-<!doctype html>
-<html lang="en" data-framework="angularjs">
-	<head>
-		<meta charset="utf-8">
-		<title>AngularJS • TodoMVC</title>
-		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
-		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
-		<style>[ng-cloak] { display: none; }</style>
-	</head>
-	<body ng-app="todomvc">
-		<ng-view />
+<!DOCTYPE html>
+<html lang="en">
 
-		<script type="text/ng-template" id="todomvc-index.html">
-			<section id="todoapp">
-				<header id="header">
-					<h1>todos</h1>
-					<form id="todo-form" ng-submit="addTodo()">
-						<input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" ng-disabled="saving" autofocus>
-					</form>
-				</header>
-				<section id="main" ng-show="todos.length" ng-cloak>
-					<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
-					<label for="toggle-all">Mark all as complete</label>
-					<ul id="todo-list">
-						<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
-							<div class="view">
-								<input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
-								<label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
-								<button class="destroy" ng-click="removeTodo(todo)"></button>
-							</div>
-							<form ng-submit="saveEdits(todo, 'submit')">
-								<input class="edit" ng-trim="false" ng-model="todo.title" todo-escape="revertEdits(todo)" ng-blur="saveEdits(todo, 'blur')" todo-focus="todo == editedTodo">
-							</form>
-						</li>
-					</ul>
-				</section>
-				<footer id="footer" ng-show="todos.length" ng-cloak>
-					<span id="todo-count"><strong>{{remainingCount}}</strong>
-						<ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
-					</span>
-					<ul id="filters">
-						<li>
-							<a ng-class="{selected: status == ''} " href="#/">All</a>
-						</li>
-						<li>
-							<a ng-class="{selected: status == 'active'}" href="#/active">Active</a>
-						</li>
-						<li>
-							<a ng-class="{selected: status == 'completed'}" href="#/completed">Completed</a>
-						</li>
-					</ul>
-					<button id="clear-completed" ng-click="clearCompletedTodos()" ng-show="completedCount">Clear completed</button>
-				</footer>
-			</section>
-			<footer id="info">
-				<p>Double-click to edit a todo</p>
-				<p>Credits:
-					<a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>,
-					<a href="http://ericbidelman.com">Eric Bidelman</a>,
-					<a href="http://jacobmumm.com">Jacob Mumm</a> and
-					<a href="http://blog.igorminar.com">Igor Minar</a>
-				</p>
-				<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-			</footer>
-		</script>
-		<script src="node_modules/todomvc-common/base.js"></script>
-		<script src="node_modules/angular/angular.js"></script>
-		<script src="node_modules/angular-route/angular-route.js"></script>
-		<script src="node_modules/angular-resource/angular-resource.js"></script>
-		<script src="js/app.js"></script>
-		<script src="js/controllers/todoCtrl.js"></script>
-		<script src="js/services/todoStorage.js"></script>
-		<script src="js/directives/todoFocus.js"></script>
-		<script src="js/directives/todoEscape.js"></script>
-	</body>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Index - QuickStart Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: QuickStart
+  * Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <img src="assets/img/logo.png" alt="">
+        <h1 class="sitename">DevOps Spark</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero" class="active">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="index.html#services">Tools</a></li>
+          <li><a href="index.html#pricing">Automation Hub</a></li>
+          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="https://aws.amazon.com/about-aws/">Explore AWS</a></li>
+              <li class="dropdown"><a href="https://docs.docker.com/get-started/"><span>Explore Docker</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                  <li><a href="https://docs.docker.com/get-started/get-docker/">Docker Installation</a></li>
+                  <li><a href="https://docs.docker.com/get-started/docker-overview/">Docker Overview</a></li>
+                  <li><a href="https://docs.docker.com/get-started/introduction/">Docker Guide</a></li>
+                  <li><a href="https://docs.docker.com/get-started/workshop/">Docker Workshop</a></li>
+                  <li><a href="https://docs.docker.com/get-started/resources/">Docker Resources</a></li>
+                </ul>
+              </li>
+              <li><a href="https://kubernetes.io/">Explore Kubernetes</a></li>
+              <li><a href="https://developer.hashicorp.com/terraform/intro">Explore Terraform</a></li>
+              <li><a href="https://www.atlassian.com/git/tutorials/what-is-git">Explore Git</a></li>
+              <li><a href=" https://poojadevops1.github.io/portfolio/">My_Profile</a></li>
+            </ul>
+          </li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="index.html#about">Get Started</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+      <div class="hero-bg">
+        <img src="assets/img/hero-bg-light.webp" alt="">
+      </div>
+      <div class="container text-center">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <h1 data-aos="fade-up">Welcome to <span>DevOps Spark</span></h1>
+          <p data-aos="fade-up" data-aos-delay="100">Kickstart Your DevOps Journey<br></p>
+          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+            <a href="#about" class="btn-get-started">Get Started</a>
+            <a href="https://www.youtube.com/watch?v=Xrgk023l4lI&list=PPSV" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+          </div>
+          <img src="assets/img/devops-2.svg" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    
+
+          
+           
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+            <p class="who-we-are">What is DevOps? Let’s Spark Your Curiosity!</p>
+            <h3>Ever wondered what makes tech giants deliver faster, innovate better, and stay ahead of the curve? 🌟</h3>
+            <p class="fst-italic">
+              That’s the magic of DevOps!
+            </p>
+            <p class="fst-italic">
+              Imagine a world where developers and operations teams work together seamlessly—breaking silos, automating workflows,
+              and delivering top-notch software at lightning speed. DevOps isn’t just a methodology; it’s a culture, a mindset, and a spark for
+              transformation.
+            </p>
+            <p class="fst-italic">
+              With DevOps, you:
+            </p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i> <span>Bridge the gap between development and IT operations.</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Automate repetitive tasks to focus on what matters—innovation.</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Deliver reliable, scalable, and efficient systems like a pro.</span></li>
+            </ul>
+            <p class="fst-italic">
+              Whether you're new or experienced, DevOps is your gateway to creating solutions that make a difference. 
+              Ready to embrace the spark? Let’s dive in! 🚀
+            </p>
+            <a href="https://hashnode.com/edit/cm2rmqxbw000909lcfnhphwuw" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+          </div>
+
+          <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
+            <div class="row gy-4">
+              <div class="col-lg-6">
+                <img src="assets/img/DevOps-1.png" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6">
+                <div class="row gy-4">
+                  <div class="col-lg-12">
+                    <img src="assets/img/devops.png!w700wp" class="img-fluid" alt="">
+                  </div>
+                  <div class="col-lg-12">
+                    <img src="assets/img/DevOps Transformation Hero Transparent SK 06072020.webp" class="img-fluid" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- /About Section -->
+
+    <!-- Clients Section -->
+    <section id="clients" class="clients section">
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="row gy-4">
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/Jira_Logo.svg.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/jenkins-logo-vector.svg" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/Apache_Maven_logo.svg.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/Docker_(container_engine)_logo.svg.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/Kubernetes-Logo.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/Terraform_Logo.svg.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/git-logo-svg-vector.svg" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/1_LydFAwy_HJjw8lGCsi1Iqg.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/prometheus-monitoring-system-logo-3C07B67C00-seeklogo.com.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/Grafana_logo.svg.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/Ansible_Logo.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/Amazon_Web_Services-Logo.wine.png" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Clients Section -->
+
+    <!-- Features Section -->
+    <section id="features" class="features section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Features</h2>
+        <p> "Where collaboration, automation, and speed come together to create unstoppable software!"</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+        <div class="row justify-content-between">
+
+          <div class="col-lg-5 d-flex align-items-center">
+
+            <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
+              <li class="nav-item">
+                <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
+                  <i class="bi bi-airplane"></i>
+
+                  <div>
+                    <h4 class="d-none d-lg-block">Collaboration and Communication</h4>
+                    <p>
+                      “Break down silos and bring devs and ops together for faster decisions and smoother workflows!”
+                    </p>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-2">
+                  <i class="bi bi-wrench"></i>
+
+                  <div>
+                    <h4 class="d-none d-lg-block">Automation</h4>
+                    <p>
+                      “Say goodbye to repetitive tasks! Automate your code integration, testing, and deployment with tools like Jenkins, Docker, and Terraform!”
+                    </p>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
+                  <i class="bi bi-gear-fill bi-spin"></i>
+
+                  <div>
+                    <h4 class="d-none d-lg-block">Continuous Integration & Delivery (CI/CD)</h4>
+                    <p>
+                      "Integrate early, deploy often—CI/CD ensures your code is always ready for production with minimal effort."
+                    </p>
+                  </div>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link " data-bs-toggle="tab" data-bs-target="#features-tab-4">
+                <i class="bi bi-laptop"></i>
+
+                  <div>
+                    <h4 class="d-none d-lg-block">Infrastructure as Code (IaC)</h4>
+                    <p>
+                      “Manage your infrastructure like code—repeatable, consistent, and automated with Terraform and CloudFormation!”
+                    </p>
+                  </div>
+                  </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-5">
+                      <i class="bi bi-globe"></i>
+
+    
+                      <div>
+                        <h4 class="d-none d-lg-block">Microservices Architecture</h4>
+                        <p>
+                          “Build apps as independent, scalable services that are easy to maintain and upgrade!”
+                        </p>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-5">
+                      <i class="bi bi-activity"></i>
+
+
+                      <div>
+                        <h4 class="d-none d-lg-block"> Monitoring & Logging</h4>
+                        <p>
+                          “Get real-time feedback and optimize performance using powerful tools like Prometheus, Grafana, and Nagios!”
+                        </p>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-5">
+                      <i class="bi bi-git"></i>
+
+                      <div>
+                        <h4 class="d-none d-lg-block"> Version Control</h4>
+                        <p>
+                          “Track, manage, and roll back code changes seamlessly using Git—because every change counts!”
+                        </p>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-5">
+                      <i class="bi bi-lightning"></i>
+
+
+                      <div>
+                        <h4 class="d-none d-lg-block"> Agility and Speed</h4>
+                        <p>
+                          “Speed up development cycles and reduce time-to-market with faster deployments and agile iterations!”
+                        </p>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-5">
+                      <i class="bi bi-shield"></i>
+
+                      <div>
+                        <h4 class="d-none d-lg-block"> Security (DevSecOps)</h4>
+                        <p>
+                          “Security is everyone’s responsibility! Automate testing and stay compliant with DevSecOps tools like Snyk and AWS Security Hub.”
+                        </p>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-5">
+                      <i class="bi bi-layers"></i>
+
+                      <div>
+                        <h4 class="d-none d-lg-block"> Scalability and Reliability</h4>
+                        <p>
+                          “Scale effortlessly and ensure uptime with auto-scaling, load balancing, and Kubernetes orchestration!”
+                        </p>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-5">
+                      <i class="bi bi-arrow-repeat"></i>
+                      <div>
+                        <h4 class="d-none d-lg-block"> Feedback Loops</h4>
+                        <p>
+                          “Continuous feedback drives improvement—empower your team with monitoring and user insights for smarter decisions!”
+                        </p>
+                      </div>
+                    </a>
+                  </li>
+
+
+                  <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-5">
+                      <i class="bi bi-person-lines-fill"></i>
+
+
+                      <div>
+                        <h4 class="d-none d-lg-block">  Cultural Shift</h4>
+                        <p>
+                          “Foster a culture of collaboration, experimentation, and continuous learning to unlock your team's full potential!”
+                        </p>
+                      </div>
+                    </a>
+                  </li>                </ul><!-- End Tab Nav -->
+
+          </div>
+
+          <div class="col-lg-6">
+
+            <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+
+              <div class="tab-pane fade active show" id="features-tab-1">
+                <img src="assets/img/1_h5Zs-8nFcTrgR1UceyKYXA.png" alt="" class="img-fluid">
+              </div><!-- End Tab Content Item -->
+
+              <div class="tab-pane fade " id="features-tab-2">
+                <img src="assets/img/xenonstack-automation-tools-devops.webp" alt="" class="img-fluid">
+              </div><!-- End Tab Content Item -->
+
+              <div class="tab-pane fade" id="features-tab-3">
+                <img src="assets/img/tabs-3.jpg" alt="" class="img-fluid">
+              </div><!-- End Tab Content Item -->
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Features Section -->
+
+    <!-- Features Details Section -->
+    <section id="features-details" class="features-details section">
+
+      <div class="container">
+
+        <div class="row gy-4 justify-content-between features-item">
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <img src="assets/img/6763736.webp" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="content">
+              <h3>Bridging Gaps, Boosting Innovation 🌟</h3>
+              <p>
+                DevOps was introduced to bridge the gap between development and operations teams, making software delivery faster and more efficient.
+                 By encouraging collaboration, automating repetitive tasks, and using practices like Continuous Integration and Delivery (CI/CD), 
+                 DevOps creates a culture of shared responsibility and continuous improvement. With tools like Jenkins, Docker, and Kubernetes,
+                  DevOps speeds up the software development process, ensuring better quality, reliability, and security—all while fostering 
+                  a culture of teamwork and innovation!
+              </p>
+              <p>Boost your DevOps knowledge with these quick gems
+              <a href="https://www.simplilearn.com/what-is-devops-benefits-and-tools-article" target="_blank">Simplilearn</a>, 
+              <a href="https://www.altexsoft.com/blog/devops-principles-practices-and-devops-engineer-role/" target="_blank">AltexSoft</a>, and 
+              <a href="https://www.educative.io/blog/introduction-to-devops" target="_blank">Educative</a>.</p>
+            </div>
+          </div>
+
+        </div><!-- Features Item -->
+
+        <div class="row gy-4 justify-content-between features-item">
+
+          <div class="col-lg-5 d-flex align-items-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="content">
+              <h3>CI/CD: The Pulse of DevOps Innovation 🚀</h3>
+              <p>
+                CI/CD is the heartbeat of DevOps because it keeps the flow of software seamless and continuous.
+                 Continuous Integration (CI) lets developers merge code regularly, ensuring bugs are caught early, 
+                 while Continuous Delivery (CD) ensures that new features are always production-ready. 
+                 Together, they automate and speed up processes, allowing teams to deliver high-quality software fast and efficiently. 
+                 It’s like the steady rhythm of the heart—keeping everything moving smoothly! 🚀💡
+              </p>
+              <ul>
+                <li><i class="bi bi-gear-fill bi-spin"></i>Continuous Integration</li>
+                <li><i class="bi bi-airplane"></i> Continuous Delivery </li>
+                <li><i class="bi bi-globe flex-shrink-0"></i> Continuous Deployment </li>
+              </ul>
+              <p></p>
+              <p>"Supercharge your CI/CD skills with these quick and insightful resources!" 🚀</p>
+                <a href="https://www.linkedin.com/pulse/cicd-heart-devops-its-importance-modern-software-zachary-perlmutter/" target="_blank">Linkedin</a>, 
+                <a href="https://radixweb.com/blog/ci-cd-vs-devops" target="_blank">Radix</a>, and 
+                <a href="https://www.educative.io/blog/introduction-to-devops" target="_blank">Hashnode</a>
+            </div>
+
+          </div>
+
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
+            <img src="assets/img/CICD (V4).webp" class="img-fluid" alt="">
+          </div>
+
+        </div><!-- Features Item -->
+
+      </div>
+
+    </section><!-- /Features Details Section -->
+
+    <!-- Services Section -->
+    <section id="services" class="services section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Tools</h2>
+        <p>"Essential Tools for Streamlining DevOps Processes"</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row g-5">
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item item-cyan position-relative">
+              <i class="bi bi-git icon"></i>
+
+              <div>
+                <h3>Git <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub Logo" style="width: 24px; height: 24px;">
+                  </h3>
+                <p>Git is a powerful version control tool in DevOps, enabling teams to track code changes, collaborate efficiently,
+                   and integrate seamlessly with CI/CD pipelines for streamlined development and deployment.</p>
+                <a href="https://www.simplilearn.com/tutorials/git-tutorial/what-is-git#:~:text=Git%20is%20a%20DevOps%20tool,together%20on%20non%2Dlinear%20development." class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item item-orange position-relative">
+              <i class="fa fa-cogs icon"></i>
+
+              <div>
+                <h3>Jenkins<img src="https://www.jenkins.io/images/logos/jenkins/jenkins.svg" alt="Jenkins Logo" style="width: 26px; height: 26px;">
+                </h3>
+                <p>Jenkins is an open-source automation server used for continuous integration and continuous delivery (CI/CD). 
+                  It automates tasks like building, testing, and deploying software, streamlining the development process. 
+                  With its extensive plugin ecosystem, Jenkins integrates with various tools and platforms to support efficient DevOps workflows.</p>
+                <a href="https://www.jenkins.io/" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item item-teal position-relative">
+              <i class="bi bi-wrench icon"></i>
+
+              <div>
+                <h3>Ansible<img src="assets/img/ansible-icon-512x512-fydu4n0b.png" alt="Ansible Logo" style="width: 26px; height: 26px;">
+                </h3>
+                <p>Ansible is an open-source automation tool used in DevOps for configuration management, application deployment, and task automation. It uses simple YAML-based playbooks to automate complex processes, 
+                  and its agentless architecture allows easy integration with both on-premises and cloud environments.</p>
+                <a href="https://staragile.com/blog/what-is-ansible-in-devops#:~:text=Ansible%20is%20an%20open%2Dsource,configuring%2C%20and%20managing%20IT%20infrastructure." class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-item item-red position-relative">
+              <i class="bi bi-box icon"></i>
+
+
+            <div>
+              <h3>Docker <span style="font-size: 30px;">🐋</span></h3>
+
+                <p>Docker is a powerful DevOps tool used for containerization, enabling the packaging of applications and their dependencies into isolated,
+                   portable containers. It streamlines development, testing, and deployment by ensuring consistency across different environments.
+                    Docker enhances scalability, flexibility, and efficiency, making it easier to manage and deploy applications in both cloud 
+                    and on-premise environments.</p>
+                <a href="https://www.docker.com/blog/docker-for-devops/#:~:text=Docker%20provides%20a%20transformative%20impact,deliver%20better%20code%20more%20quickly." class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-item item-indigo position-relative">
+              <i class="fa fa-file-archive icon"></i>
+
+              <div>
+                <h3>Kubernetes<img src="assets/img/Kubernetes-Symbol.png" alt="Kubernetes Logo" style="width: 26px; height: 26px;"></h3>
+                <p>Kubernetes is a leading open-source container orchestration platform used in DevOps for automating the deployment, scaling, 
+                  and management of containerized applications. It provides a robust framework for managing clusters of containers, ensuring high availability, 
+                  load balancing, and resource optimization. Kubernetes simplifies complex containerized environments by offering features like automated rollouts,
+                   self-healing, and service discovery, making it a key tool for streamlining DevOps workflows in cloud-native applications.</p>
+                <a href="https://octopus.com/devops/glossary/kubernetes/#:~:text=Kubernetes%20%2D%20also%20known%20as%20'K8s,Updating%20software" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-item item-pink position-relative">
+              <i class="fa fa-file-alt icon"></i>
+
+              <div>
+                <h3>Terraform<img src="assets/img/terraform.png" alt="Terraform Logo" style="width: 26px; height: 26px;"></h3>
+                <p>Terraform is an open-source Infrastructure as Code (IaC) tool used to automate infrastructure provisioning across
+                   multiple cloud providers. It allows teams to define infrastructure using configuration files, ensuring consistency and scalability 
+                   while streamlining deployment and management.</p>
+                <a href="https://staragile.com/blog/terraform-in-devops" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-item item-indigo position-relative">
+              <i class="bi bi-activity icon"></i>
+
+
+              <div>
+                <h3>Prometheus<img src="assets/img/prometheus_logo.png" alt="Terraform Logo" style="width: 26px; height: 26px;"></h3>
+                <p>Prometheus is an open-source monitoring and alerting tool designed for cloud-native environments.
+                   It collects and stores metrics as time-series data, providing powerful querying and visualization capabilities. 
+                   Widely used in DevOps, Prometheus enables proactive monitoring with real-time alerts and seamless integration with tools like Grafana for
+                    better insights.
+                </p>
+                <a href="https://signoz.io/guides/what-is-Prometheus-used-for-in-DevOps/" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-item item-pink position-relative">
+              <i class="bi bi-bar-chart icon"></i>
+
+
+              <div>
+                <h3>Grafana<img src="assets/img/grafana-icon-132x144-fbqiubro.png" alt="Terraform Logo" style="width: 26px; height: 26px;"></h3>
+                <p>Grafana is a powerful open-source visualization and analytics tool widely used in DevOps for monitoring infrastructure and applications. 
+                  It supports querying and displaying metrics from various data sources like Prometheus, Elasticsearch, and InfluxDB. With its customizable dashboards
+                   and alerting features, Grafana helps teams gain actionable insights and maintain system reliability.
+                </p>
+                <a href="https://www.browserstack.com/guide/top-devops-monitoring-tools#:~:text=Grafana%20is%20a%20renowned%20open,analyze%20data%20from%20various%20sources." class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-item item-cyan position-relative">
+              <i class="bi bi-card-checklist icon"></i>
+
+
+
+              <div>
+                <h3>Jira<img src="assets/img/apps-jira-icon-2048x2048-u2czanhx.png" alt="Terraform Logo" style="width: 26px; height: 26px;"></h3>
+                <p>Jira is a popular project management and issue-tracking tool widely used in DevOps for planning, tracking, and managing software development workflows.
+                   It enables teams to collaborate effectively, monitor progress, and integrate with CI/CD pipelines. With features like sprint management and reporting,
+                   Jira supports Agile methodologies and enhances team productivity.
+                </p>
+                <a href="https://www.atlassian.com/software/jira/templates/devops" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-item item-pink position-relative">
+              <i class="bi bi-tools icon"></i>
+
+
+
+
+              <div>
+                <h3>Maven<img src="assets/img/file-type-maven-icon-192x256-wb8b12w6.png" alt="Terraform Logo" style="width: 26px; height: 26px;"></h3>
+                <p>Maven is a powerful build automation and dependency management tool widely used in DevOps for Java-based projects. 
+                  It simplifies project builds, manages dependencies, and integrates seamlessly with CI/CD pipelines. By automating repetitive tasks, 
+                  Maven helps streamline software development and ensures consistency across environments.
+                </p>
+                <a href="https://www.browserstack.com/guide/maven-devops#:~:text=the%20use%20of%20Maven%20in,lists%2C%20reporting%2C%20and%20dependencies." class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-item item-teal position-relative">
+            <i class="bi bi-clipboard-check icon"></i>
+
+          <div>
+            <h3>SonarQube<img src="assets/img/sonarqube-logo-AF25541AAF-seeklogo.com.png" alt="Terraform Logo" style="width: 26px; height: 26px;"></h3>
+            <p>SonarQube is a popular DevOps tool for continuous code quality and security analysis.
+               It helps developers identify bugs, code smells, and vulnerabilities, ensuring high-quality, maintainable code.
+                Integrated into CI/CD pipelines, SonarQube enables teams to enforce coding standards and improve software reliability.
+            </p>
+            <a href="https://medium.com/@mesagarkulkarni/devops-tool-sonarqube-09b84fd1b4ea" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div><!-- End Service Item -->
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+        <div class="service-item item-pink position-relative">
+          <i class="bi bi-robot icon"></i>
+
+      <div>
+        <h3>Selenium<img src="assets/img/selenium-icon-2048x1986-3fr2ikf8.png" alt="Terraform Logo" style="width: 26px; height: 26px;"></h3>
+        <p>Selenium is a key tool in DevOps for automating web application testing, ensuring consistent quality through automated functional and regression tests. 
+          Integrated with CI/CD pipelines, it enables fast, scalable testing across multiple browsers, providing quick feedback to developers and enhancing 
+          the overall deployment process.
+        </p>
+        <a href="https://www.edureka.co/blog/devops-tools#:~:text=Selenium%20plays%20an%20important%20role,the%20development%20and%20deployment%20process." class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+      </div>
+    </div>
+  </div><!-- End Service Item -->
+
+  <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+    <div class="service-item item-pink position-relative">
+      <i class="bi bi-cloud icon"></i>
+
+
+  <div>
+    <h3>AWS<img src="assets/img/aws-logo-logo-png-transparent.png" alt="Terraform Logo" style="width: 26px; height: 26px;"></h3>
+    <p>AWS provides a comprehensive set of tools that are integral to DevOps practices, 
+      enabling continuous integration, continuous delivery, and infrastructure automation.
+       Services like AWS CodePipeline automate the CI/CD pipeline, while AWS CodeBuild and AWS CodeDeploy streamline build and deployment processes.
+        Amazon EC2 and Amazon ECS support scalable infrastructure, and AWS CloudFormation allows for infrastructure as code, enabling teams to provision and
+         manage resources efficiently. AWS tools foster collaboration, automation, and faster delivery cycles, making them essential for DevOps teams aiming to build,
+          test, and deploy applications seamlessly.
+    </p>
+    <a href="https://aws.amazon.com/devops/" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+  </div>
+</div>
+</div><!-- End Service Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Services Section -->
+
+    <!-- More Features Section -->
+    <section id="more-features" class="more-features section">
+
+      <div class="container">
+
+        <div class="row justify-content-around gy-8">
+
+          <div class="col-lg-6 d-flex flex-column justify-content-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
+            <h3>Benefits of Devops</h3>
+            <p>The Power of DevOps in Modern Software Development</p>
+
+            <div class="row">
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-speedometer2"></i>
+
+                <div>
+                  <h4>Speed</h4>
+                  <p>Move at high velocity so you can innovate for customers faster, adapt to changing markets better, and grow more efficient at driving business results. 
+                    The DevOps model enables your developers and operations teams to achieve these results. For example, microservices and continuous delivery let teams take ownership 
+                    of services and then release updates to them quicker. </p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-truck"></i>
+
+                <div>
+                  <h4>Rapid Delivery</h4>
+                  <p>Increase the frequency and pace of releases so you can innovate and improve your product faster.
+                     The quicker you can release new features and fix bugs, the faster you can respond to your customers’ needs and build competitive advantage.
+                     Continuous integration and continuous delivery are practices that automate the software release process, from build to deploy.</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-shield-lock"></i>
+
+                <div>
+                  <h4>Reliability</h4>
+                  <p>Ensure the quality of application updates and infrastructure changes so you can reliably deliver at a more rapid pace while maintaining
+                     a positive experience for end users. Use practices like continuous integration and continuous delivery to test that each change is functional 
+                     and safe. Monitoring and logging practices help you stay informed of performance in real-time.</p>
+                </div>
+              </div><!-- End Icon Box -->
+              
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-fullscreen"></i>
+
+                 <div>
+                  <h4>Scale</h4>
+                  <p>Operate and manage your infrastructure and development processes at scale.
+                     Automation and consistency help you manage complex or changing systems efficiently and with reduced risk. 
+                     For example, infrastructure as code helps you manage your development, testing, and production environments in a repeatable and 
+                     more efficient manner.</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-share"></i>
+
+                <div>
+                  <h4>Improved Collaboration</h4>
+                  <p>Build more effective teams under a DevOps cultural model, which emphasizes values such as ownership and accountability.
+                     Developers and operations teams collaborate closely, share many responsibilities, and combine their workflows.
+                      This reduces inefficiencies and saves time (e.g. reduced handover periods between developers and operations, writing code that takes into 
+                      account the environment in which it is run)..</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-shield-lock"></i>
+
+                <div>
+                  <h4>Security</h4>
+                  <p>Move quickly while retaining control and preserving compliance.
+                     You can adopt a DevOps model without sacrificing security by using automated compliance policies, fine-grained controls, and
+                      configuration management techniques. For example, using infrastructure as code and policy as code, you can define and then track compliance 
+                      at scale.</p>
+                </div>
+              </div><!-- End Icon Box -->
+            </div>
+
+          </div>
+
+          <div class="features-image col-lg-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
+            <img src="assets/img/devops-benefits.jpeg" alt="">
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /More Features Section -->
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Automation Hub</h2>
+        <p>From Integration to Deployment- Unlocking the Power of CI/CD for Faster and Reliable Software Delivery</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+            <div class="pricing-item">
+              <h3>Continuous Integration (CI)</h3>
+              <p class="description">Automate code integration to detect and fix issues early, ensuring seamless collaboration and faster delivery</p>
+              <h5><sup></sup>Code Commit → Build → Test</h5>
+              <a href="https://aws.amazon.com/devops/continuous-integration/#:~:text=Continuous%20integration%20refers%20to%20the,for%20a%20release%20to%20production." class="cta-btn">Unlock New Knowledge</a>
+              <p class="text-center small">Begin Your Learning Now</p>
+              <ul>
+                <li><i class="bi bi-check"></i> <span>Developers frequently merge their code changes into the main branch.</span></li>
+                <li><i class="bi bi-check"></i> <span>Changes are validated by creating builds and running automated tests.</span></li>
+                <li><i class="bi bi-check"></i> <span>Focuses on testing automation to ensure new commits do not break the application.</span></li>
+                <li><i class="bi bi-check"></i> <span>Helps avoid integration issues that may arise close to release dates.</span></li>
+              </ul>
+            </div>
+          </div><!-- End Pricing Item -->
+
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+            <div class="pricing-item featured">
+              <h3>Continuous Delivery (CD)</h3>
+              <p class="description">Ensures code is always ready for release with automated testing and approvals.</p>
+              <h5><sup></sup>Code Commit → Build → Test → Staging Deployment → Manual Approval
+                </h5>
+              <a href="https://aws.amazon.com/devops/continuous-delivery/" class="cta-btn">Unlock New Knowledge</a>
+              <p class="text-center small">Begin Your Learning Now</p>
+              <ul>
+                <li><i class="bi bi-check"></i> <span>Extends continuous integration by automating the deployment of code changes to testing or production environments.</span></li>
+                <li><i class="bi bi-check"></i> <span>Includes an automated release process that allows deployment at the click of a button.</span></li>
+                <li><i class="bi bi-check"></i> <span>Enables flexible release schedules (daily, weekly, etc.) based on business needs.</span></li>
+                <li><i class="bi bi-check"></i> <span>Encourages deploying small, frequent updates to simplify troubleshooting and ensure early feedback.</span></li>
+                
+              </ul>
+            </div>
+          </div><!-- End Pricing Item -->
+
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+            <div class="pricing-item">
+              <h3>Continuous Deployment (CDp)</h3>
+              <p class="description">Automatically deploys every change to production without manual intervention</p>
+              <h5><sup></sup>Code Commit → Build → Test → Staging Deployment → Production Deployment</h5>
+              <a href="https://www.ibm.com/topics/continuous-deployment" class="cta-btn">Unlock New Knowledge</a>
+              <p class="text-center small">Begin Your Learning Now</p>
+              <ul>
+                <li><i class="bi bi-check"></i> <span>Builds upon continuous delivery by automating the release of every successful code change directly to production.</span></li>
+                <li><i class="bi bi-check"></i> <span>No human intervention is needed—failed tests are the only blockers for deployment.</span></li>
+                <li><i class="bi bi-check"></i> <span>Eliminates the concept of "release day," accelerating feedback loops with customers.</span></li>
+                <li><i class="bi bi-check"></i> <span>Allows developers to focus on building software, with their changes going live shortly after completion.</span></li>
+                
+              </ul>
+            </div>
+          </div><!-- End Pricing Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Pricing Section -->
+
+    <!-- Faq Section -->
+    <section id="faq" class="faq section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Frequently Asked Questions</h2>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row justify-content-center">
+
+          <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="faq-container">
+
+              <div class="faq-item faq-active">
+                <h3>What is DevOps, and how does it benefit software development?</h3>
+                <div class="faq-content">
+                  <p>DevOps is a set of practices that combine software development (Dev) and IT operations (Ops) to shorten the development lifecycle, 
+                    improve collaboration, and deliver software faster and more reliably.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>What are the core principles of DevOps?</h3>
+                <div class="faq-content">
+                  <p>The core principles include Continuous Integration, Continuous Delivery, Automation, Collaboration, Monitoring, and Infrastructure as Code (IaC).</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>How do containers and microservices fit into the DevOps process?</h3>
+                <div class="faq-content">
+                  <p>Containers (like Docker) help standardize environments, and microservices architecture allows DevOps teams to independently deploy and scale different application parts.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>What is Jenkins, and why is it popular in DevOps?</h3>
+                <div class="faq-content">
+                  <p>Jenkins is an open-source automation server used for continuous integration and continuous delivery (CI/CD). 
+                    It automates building, testing, and deploying applications, making it crucial in DevOps pipelines.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>What is the difference between declarative and scripted Jenkins pipelines?</h3>
+                <div class="faq-content">
+                  <p>Declarative pipelines offer a simpler, structured syntax for defining CI/CD pipelines, 
+                    while scripted pipelines provide more flexibility and control but require more coding.
+                  </p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>What are Jenkins plugins, and how do they extend Jenkins functionality?</h3>
+                <div class="faq-content">
+                  <p>Jenkins plugins add extra features and integrations with other tools (like version control systems, build tools, or deployment platforms) to enhance Jenkins' 
+                    functionality./p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+             <div class="faq-item">
+                <h3>What is the difference between Continuous Integration (CI) and Continuous Deployment (CD)?</h3>
+                <div class="faq-content">
+                  <ul>
+                  <li>Continuous Integration (CI) focuses on automatically integrating code changes into a shared repository, running tests, and detecting issues early.</li>
+                    <li>Continuous Deployment (CD) automates the process of deploying every change to production after passing tests, without manual intervention.
+                    </li></ul>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+              <div class="faq-item">
+                <h3>What is Amazon EC2, and how does it support DevOps practices?</h3>
+                <div class="faq-content">
+                  <p>Amazon EC2 (Elastic Compute Cloud) provides scalable virtual servers in the cloud, enabling DevOps teams to quickly spin up resources for testing, building, and deploying applications..</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+            </div>
+
+          </div><!-- End Faq Column-->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Faq Section -->
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>DevOps Lifecycle</h2>
+        <p>Plan. Build. Deploy. Monitor. Repeat.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              },
+              "breakpoints": {
+                "320": {
+                  "slidesPerView": 1,
+                  "spaceBetween": 40
+                },
+                "1200": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 1
+                }
+              }
+            }
+          </script>
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <h5>Plan</h5>
+                </div>
+                <p>
+                  Involves defining project requirements, goals, and workflows. Teams collaborate to create a roadmap for 
+                  the software development and deployment process.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/5115293.png" class="testimonial-img" alt="">
+                  
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <h5>Code</h5>
+                </div>
+                <p>
+                  Developers write and manage source code using version control systems like Git to ensure collaboration and track changes effectively.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/5115293.png" class="testimonial-img" alt="">
+                  
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <h5>Build</h5>
+                </div>
+                <p>
+                  The code is compiled and packaged into deployable artifacts. Tools like Maven or Gradle automate this process and ensure that builds are consistent.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/5115293.png" class="testimonial-img" alt="">
+                  
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <h5>Test</h5>
+                </div>
+                <p>
+                  Automated and manual testing is conducted to identify bugs or issues. Tools like Selenium and JUnit ensure the quality and reliability of the code.</p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/5115293.png" class="testimonial-img" alt="">
+                  
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <h5>Release</h5>
+                </div>
+                <p>
+                  Approved builds are prepared for deployment. Release management tools like Jenkins or GitHub Actions help ensure smooth handoffs between development and operations.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/5115293.png" class="testimonial-img" alt="">
+                  
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <h5>Deploy</h5>
+                </div>
+                <p>
+                  The application is deployed to production or staging environments using tools like Kubernetes or Terraform. Continuous deployment ensures faster delivery to end-users.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/5115293.png" class="testimonial-img" alt="">
+                 
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <h5>Operate</h5>
+                </div>
+                <p>
+                  The application is monitored in production to ensure performance and availability. Teams use tools like AWS CloudWatch or Prometheus to maintain smooth operations.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/5115293.png" class="testimonial-img" alt="">
+                  
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <h5>Monitor</h5>
+                </div>
+                <p>
+                  Real-time monitoring tracks system health, user behavior, and performance metrics. Alerts and logging tools like Splunk or Grafana help identify and resolve issues proactively.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/5115293.png" class="testimonial-img" alt="">
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    </section><!-- /Testimonials Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p>"Let’s Connect and Create Magic Together!"</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6">
+            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
+              <i class="bi bi-geo-alt"></i>
+              <h3>Address</h3>
+              <p>chennai, TamilNadu</p>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
+              <i class="bi bi-telephone"></i>
+              <h3>Call Us</h3>
+              <p>9345930753</p>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
+              <i class="bi bi-envelope"></i>
+              <h3>Email Us</h3>
+              <p>pmanellore@gmail.com</p>
+            </div>
+          </div><!-- End Info Item -->
+
+        </div>
+
+        <div class="row gy-4 mt-1">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31109.709626881237!2d80.0441982!3d13.0474733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e61a70b6863d433!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                width="100%"
+                height="450"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+          <div class="col-lg-6">
+            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                </div>
+
+                <div class="col-md-6 ">
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                </div>
+
+                <div class="col-md-12">
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                </div>
+
+                <div class="col-md-12">
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                  <button type="submit">Send Message</button>
+                </div>
+
+              </div>
+            </form>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer position-relative light-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">QuickStart</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>Chennai, TamilNadu</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>9345930753</span></p>
+            <p><strong>Email:</strong> <span>pmanellore@gmail.com</span></p>
+          </div>
+          <div class="social-links d-flex mt-4">
+            <a href="https://github.com/poojadevops1"><i class="bi bi-git"></i></a>
+            <a href="https://explorewithme.hashnode.dev/"><i class="fa fa-book"></i></a>
+            <a href="https://www.linkedin.com/in/pooja-manellore-27b1b6283/"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#">Web Design</a></li>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">Product Management</a></li>
+            <li><a href="#">Marketing</a></li>
+            <li><a href="#">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-12 footer-newsletter">
+          <h4>Our Newsletter</h4>
+          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+          <form action="forms/newsletter.php" method="post" class="php-email-form">
+            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">pooja </strong><span>All Rights Reserved</span></p>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="https://bootstrapmade.com/">Pooja devOps Spark</a> Dist<a href="https://themewagon.com">
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
 </html>
