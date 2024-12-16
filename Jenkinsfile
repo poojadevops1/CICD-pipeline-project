@@ -1,11 +1,13 @@
 pipeline {
     agent any
-    environment {
-        DOCKER_REGISTRY = $ {{secrets.DOCKER_REGISTRY}}
-        IMAGE_NAME = $ {{secrets.DOCKER_IMAGE_NAME}}
+    
+     environment {
+        DOCKER_REGISTRY = credentials('DOCKER_REGISTRY') // Use Jenkins credentials ID
+        IMAGE_NAME = credentials('DOCKER_IMAGE_NAME')    // Use Jenkins credentials ID
         IMAGE_TAG = "v${BUILD_NUMBER}"
-        GITHUB_REPO_B = $ {{secrets.REPO_B}} // Ensure repo URL is clean
+        GITHUB_REPO_B = credentials('REPO_B')           // Use Jenkins credentials ID
     }
+
     stages {
         stage('Build Docker Image') {
             steps {
