@@ -42,9 +42,7 @@ pipeline {
                         # Update the image tag in the deployment manifest
                         sed -i 's|image:.*|image: ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}|' deployment.yaml
 
-                        # Configure Git user details
-                        git config user.email "credentials('VERSION_USERNAME')"
-                        git config user.name "credentials('VERSION_EMAIL')"
+                        
 
                         # Commit and push changes
                         git add deployment.yaml
